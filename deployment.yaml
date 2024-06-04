@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-jenkins
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: react-jenkins
+  template:
+    metadata:
+      labels:
+        app: react-jenkins
+    spec:
+      containers:
+      - name: react-app
+        image: <docker_image_url>
+        ports:
+        - containerPort: 80
