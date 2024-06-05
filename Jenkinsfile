@@ -12,23 +12,6 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    dockerImage = docker.build("mayyazmunir/react-app:${env.BUILD_ID}")
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-        }
 
         stage('Deploy to EKS') {
             steps {
