@@ -1,31 +1,27 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_VERSION = '22.x' // Make sure to close the string with a single quote
-    }
     tools {
-        git 'Default'
+        git 'Default'  // Ensure this matches the name in Global Tool Configuration
+        nodejs 'Nodejs'   // Ensure 'Nodejs' is configured in Jenkins global tools
     }
+
+    environment {
+        NODE_VERSION = '22.x'
+    }
+
     stages {
-        stage('Test Git Access') {
-            steps {
-                script {
-                    def gitVersion = sh(script: 'git --version', returnStdout: true).trim()
-                    echo "Git version: ${gitVersion}"
-                }
-            }
-        }
         stage('Checkout') {
             steps {
-                git branch: 'master', credentialsId: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
+                git branch: 'master', credentialsId: 'your-credentials-id', url: 'https://github.com/m-ayyaz/react-jenkins.git'
             }
-    }
+        }
+
         stage('Install Node.js') {
             steps {
                 script {
-                    // Use Node.js Plugin for Jenkins
-                    tool name: 'Nodejs', type: 'NodeJSInstallation' // Correct the name of the Node.js installation
+                    def nodejs = tool name: 'Nodejs', type: 'NodeJSInstallation'
+                    env.PATH = "${nodejs}/bin:${env.PATH}"
                 }
             }
         }
