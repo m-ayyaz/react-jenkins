@@ -5,7 +5,7 @@ pipeline {
         NODE_VERSION = '22.x'
     }
     tools {
-        git 'Git'
+        git 'Default'
     }
     stages {
         stage('Checkout') {
