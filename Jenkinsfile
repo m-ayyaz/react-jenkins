@@ -4,6 +4,9 @@ pipeline {
     environment {
         NODE_VERSION = '22.x' // Make sure to close the string with a single quote
     }
+    tools {
+        git 'Default'
+    }
 
     stages {
         stage('Install Node.js') {
