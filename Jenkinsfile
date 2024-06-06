@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = '14.x'
+        NODE_VERSION = '22.x'
     }
 
     stages {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Use Node.js Plugin for Jenkins
-                    tool name: 'NodeJS 14', type: 'NodeJSInstallation'
+                    tool name: 'NodeJS 22', type: 'NodeJSInstallation'
                 }
             }
         }
