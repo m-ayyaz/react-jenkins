@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', credentialsI: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
+                git branch: 'master', credentialsId: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
             }
     }
         stage('Install Node.js') {
