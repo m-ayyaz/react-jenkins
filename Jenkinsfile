@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git 'https://github.com/m-ayyaz/https://github.com/m-ayyaz/react-jenkins.git'
+                git 'https://github.com/m-ayyaz/react-jenkins.git'
             }
         }
 
