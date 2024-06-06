@@ -13,8 +13,6 @@ pipeline {
                 git branch: 'master', credentialsId: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
             }
         }
-        // Add more stages as needed
-    }
         stage('Install Node.js') {
             steps {
                 script {
