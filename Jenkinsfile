@@ -8,6 +8,14 @@ pipeline {
         git 'Default'
     }
     stages {
+        stage('Test Git Access') {
+            steps {
+                script {
+                    def gitVersion = sh(script: 'git --version', returnStdout: true).trim()
+                    echo "Git version: ${gitVersion}"
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'master', credentialsId: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
