@@ -2,25 +2,53 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION = 'ap-southeast-1'
+        NODE_VERSION = '14.x'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone repository') {
             steps {
-                git 'https://github.com/m-ayyaz/react-jenkins.git'
+                git 'https://github.com/m-ayyaz/https://github.com/m-ayyaz/react-jenkins.git'
             }
         }
 
-
-        stage('Deploy to EKS') {
+        stage('Install Node.js') {
             steps {
                 script {
-                    sh 'aws eks update-kubeconfig --name react-cluster --region ap-southeast-1'
-                    sh 'kubectl apply -f deployment.yaml'
-                    sh 'kubectl apply -f service.yaml'
+                    // Use Node.js Plugin for Jenkins
+                    tool name: 'NodeJS 14', type: 'NodeJSInstallation'
                 }
             }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'build/**', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
