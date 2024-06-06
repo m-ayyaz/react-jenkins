@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Use Node.js Plugin for Jenkins
-                    tool name: 'NodeJS 22', type: 'NodeJSInstallation'
+                    tool name: 'Nodejs', type: 'NodeJSInstallation'
                 }
             }
         }
