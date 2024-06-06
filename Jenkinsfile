@@ -4,15 +4,6 @@ pipeline {
     environment {
         NODE_VERSION = '22.x'
     }
-    tools {
-        git 'Default'
-    }
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master', credentialsId: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
-            }
-        }
         stage('Install Node.js') {
             steps {
                 script {
