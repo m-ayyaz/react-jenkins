@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = '22.x
-        GIT_EXECUTABLE = '/usr/bin/git'
+        NODE_VERSION = '22.x'
+        GIT_EXECUTABLE = '/usr/bin/git' // Change to the correct path of Git executable
     }
+
     stages {
         stage('Checkout') {
             steps {
-                // Use the Git executable specified in the environment block
                 script {
                     def gitCommand = sh(script: 'which git', returnStdout: true).trim()
                     if (gitCommand != env.GIT_EXECUTABLE) {
@@ -16,16 +16,7 @@ pipeline {
                         env.PATH = "${env.GIT_EXECUTABLE}:${env.PATH}"
                     }
                 }
-                git branch: 'master', credentialsId: 'your-credentials-id', url: 'https://github.com/m-ayyaz/react-jenkins.git'
-            }
-        }
-        // Add more stages as needed
-    }
-
-    stages {
-        stage('Clone repository') {
-            steps {
-                git 'https://github.com/m-ayyaz/react-jenkins.git'
+                git branch: 'master', credentialsId: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
             }
         }
 
@@ -60,12 +51,6 @@ pipeline {
             steps {
                 archiveArtifacts artifacts: 'build/**', fingerprint: true
             }
-        }
-    }
-
-    post {
-        always {
-            cleanWs()
         }
     }
 }
