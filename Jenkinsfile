@@ -7,7 +7,7 @@ pipeline {
     tools {
         git 'Default'
     }
-    stages{
+    stages {
         stage('Checkout') {
             steps {
                 git branch: 'master', credentialsI: 'key', url: 'https://github.com/m-ayyaz/react-jenkins.git'
