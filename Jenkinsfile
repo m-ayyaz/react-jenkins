@@ -8,6 +8,7 @@ pipeline {
 
     environment {
         NODE_VERSION = '22.x'
+        DOCKER_IMAGE = 'mayyazmunir/react-jenkins'
     }
 
     stages {
@@ -47,6 +48,24 @@ pipeline {
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'build/**', fingerprint: true
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${env.DOCKER_IMAGE}:${env.BUILD_ID}")
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }
